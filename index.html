@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Document</title>
+</head>
+
+<body>
+	<h1>Hello VS Code</h1>
+	Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam repellat at ut reprehenderit quisquam similique sint
+	ab ullam, optio atque consequatur quaerat esse tempora unde nulla tempore iure expedita illo.
+	Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam vero soluta totam possimus, nisi enim omnis est
+	quaerat officiis, harum neque quos ad assumenda beatae culpa accusantium nulla? Libero, reprehenderit.
+</body>
+
+</html>
+<div class="res" id='res'>Здесь будет показываться результат выполнения обработчика колесика мыши
+</div>
+<script type="text/javascript">
+function wheel(event){
+    var delta = 0;
+    if (!event) event = window.event; // Событие IE.
+    // Установим кроссбраузерную delta
+    if (event.wheelDelta) {
+        // IE, Opera, safari, chrome - кратность дельта равна 120
+        delta = event.wheelDelta/120;
+    } else if (event.detail) {
+        // Mozilla, кратность дельта равна 3
+        delta = -event.detail/3;
+    }
+    if (delta) {
+        // Отменим текущее событие - событие поумолчанию (скролинг окна).
+        if (event.preventDefault) {
+            event.preventDefault();
+        }
+        event.returnValue = false; // для IE
+
+        // если дельта больше 0, то колесо крутят вверх, иначе вниз
+        var dir = delta > 0 ? 'Up' : 'Down';
+        document.getElementById('res').innerHTML=dir+' '+Math.abs(delta);
+    }
+}
+
+addEvent(window, 'mousewheel', wheel);
+addEvent(window, 'DOMMouseScroll', wheel);
+</script>
